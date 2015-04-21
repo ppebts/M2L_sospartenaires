@@ -1,7 +1,7 @@
 angular.module('sos.controllers', [])
 
       .run(function($rootScope) {
-          $rootScope.sportAvailable = [{sport : "Tennis"},{ sport : "Football"},{ sport : "Badminton"},{ sport : "Rugby"},{ sport : "Handball"}];
+          $rootScope.sportAvailable = [{sport : "Tennis"},{ sport : "Football"},{ sport : "VTT"},{ sport : "PingPong"},{ sport : "Golf"}];
           $rootScope.niveauAvailable = [{niveau : "Débutant"},{ niveau : "Intermédiaire"}, { niveau : "Expert"}];
       })
 
