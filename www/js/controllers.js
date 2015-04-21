@@ -40,7 +40,7 @@ angular.module('sos.controllers', [])
 
       .controller('listeAnnonceCtrl', function($scope, $http, $ionicLoading) {
 
-          $scope.show = function() {
+          
             $ionicLoading.show({
               template: 'Mise à jour...'
             });
@@ -67,7 +67,7 @@ angular.module('sos.controllers', [])
 
             });
 
-          };
+          
 
           $scope.doRefresh = function(){
 
@@ -87,7 +87,7 @@ angular.module('sos.controllers', [])
 
                 }).error(function (data, status) {
 
-                    alert('erreur' + data);
+                    alert('erreur : ' + data);
 
                 }).finally(function(){
 
@@ -96,7 +96,8 @@ angular.module('sos.controllers', [])
 
                 });
             }
-    })
+          })
+    
 
       .controller('ajoutAnnonceCtrl', function($scope, $http) {
 
@@ -118,7 +119,8 @@ angular.module('sos.controllers', [])
                 // "http://localhost:8888/M2L_sospartenaires/www/js/signup.php",
               }).success(function (data) {
 
-                    window.location.href = '/app/annonces';
+                    window.location.href = '#/app/annonces';
+                    alert('Annonce ajoutée !');
 
               }).error(function (data, status) {
 
@@ -132,7 +134,5 @@ angular.module('sos.controllers', [])
 
       .controller('inscriptionCtrl', function($scope, $http) {
 
-          
-          
 
       });
