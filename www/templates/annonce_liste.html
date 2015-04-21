@@ -3,7 +3,7 @@
  <ion-refresher pulling-text="Pull to refresh" on-refresh="doRefresh()">
  </ion-refresher>
 
-  <a class="item item-thumbnail-left" ng-repeat="x in annonceListe" href="#">
+  <a class="item item-thumbnail-left" ng-repeat="x in annonceListe" href="#/annonce/{{ x.id }}">
       <img src="../img/{{ x.sport|lowercase }}.png">
       <h2>{{ x.titre }}</h2>
       <p>Niveau : {{ x.niveau }} </p>
@@ -11,6 +11,3 @@
     </a>
  
 </ion-content>
-
-
-

@@ -1,11 +1,15 @@
 angular.module('sos.controllers', [])
 
       .run(function($rootScope) {
-          $rootScope.sportAvailable = [{sport : "Tennis"},{ sport : "Football"},{ sport : "VTT"},{ sport : "PingPong"},{ sport : "Golf"}];
-          $rootScope.niveauAvailable = [{niveau : "Débutant"},{ niveau : "Intermédiaire"}, { niveau : "Expert"}];
+          $rootScope.sportAvailable = [{sport : "Tennis", id : "1"},{ sport : "Football", id : "2"},{ sport : "VTT", id : "3"},{ sport : "PingPong", id : "4"},{ sport : "Golf", id : "5"}];
+          $rootScope.niveauAvailable = [{niveau : "Débutant", id : "1"},{ niveau : "Intermédiaire", id : "2"}, { niveau : "Expert", id : "3"}];
       })
 
-      .controller('menuCtrl', function($scope, $ionicModal, $timeout) {
+      .controller('menuCtrl', function($scope){
+
+      })
+
+      .controller('loginCtrl', function($scope, $ionicModal) {
         // Form data for the login modal
         $scope.loginData = {};
 
@@ -30,17 +34,11 @@ angular.module('sos.controllers', [])
         $scope.doLogin = function() {
           console.log('Doing login', $scope.loginData);
 
-          // Simulate a login delay. Remove this and replace with your login
-          // code if using a login system
-          $timeout(function() {
-            $scope.closeLogin();
-          }, 1000);
         };
       })
 
       .controller('listeAnnonceCtrl', function($scope, $http, $ionicLoading) {
 
-          $scope.show = function() {
             $ionicLoading.show({
               template: 'Mise à jour...'
             });
@@ -62,12 +60,10 @@ angular.module('sos.controllers', [])
           
             }).error(function (data, status) {
 
-                alert('erreur' + data);
+                alert('erreur : ' + data);
                $ionicLoading.hide();
 
             });
-
-          };
 
           $scope.doRefresh = function(){
 
@@ -87,7 +83,7 @@ angular.module('sos.controllers', [])
 
                 }).error(function (data, status) {
 
-                    alert('erreur' + data);
+                    alert('erreur : ' + data);
 
                 }).finally(function(){
 
@@ -96,7 +92,8 @@ angular.module('sos.controllers', [])
 
                 });
             }
-    })
+          })
+    
 
       .controller('ajoutAnnonceCtrl', function($scope, $http) {
 
@@ -132,9 +129,63 @@ angular.module('sos.controllers', [])
 
       })
 
-      .controller('inscriptionCtrl', function($scope, $http) {
+      .controller('inscriptionCtrl', function($scope, $ionicModal, $http) {
 
-          
-          
+                // Form data for the login modal
+        $scope.loginData = {};
+
+        // Create the login modal that we will use later
+        $ionicModal.fromTemplateUrl('templates/inscription.html', {
+          scope: $scope
+        }).then(function(modal) {
+          $scope.modal = modal;
+        });
+
+        // Triggered in the login modal to close it
+        $scope.closeInscription = function() {
+          $scope.modal.hide();
+        };
+
+        // Open the login modal
+        $scope.inscription = function() {
+          $scope.modal.show();
+        };
+
+        // Perform the login action when the user submits the login form
+        $scope.doInscription = function(email, password, nom, prenom, age, ville, sportFav, niveau) {
+
+           var data_q = {
+              email : email,
+              password : password,
+              nom : nom,
+              prenom : prenom,
+              age : age,
+              ville : ville,
+              sportFav : sportFav,
+              niveau : niveau
+            };
+
+            console.log(data_q);
+
+            $http({ 
+                method : 'post',
+               // url : "http://10.10.2.45/ppe-m2l-fm/signup.php",
+               url : "http://bmagne.hostoi.com/inscription.php",
+                data : data_q,
+                headers : {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'},
+                dataType : 'json'
+                // "http://localhost:8888/M2L_sospartenaires/www/js/signup.php",
+              }).success(function (data) {
+
+                    window.location.href = '#/app/annonces';
+                    alert('Bien inscrit ! Vous pouvez vous connecter.');
+
+              }).error(function (data, status) {
+
+                alert('L\'application n\'a pas pu mettre à jour le contenu : ' + data);
+
+              });
+
+        };
 
       });
