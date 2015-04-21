@@ -44,7 +44,7 @@ angular.module('sos', ['ionic', 'sos.controllers'])
     url: "/annonce/{id}",
     views: {
       'menuContent': {
-        templateUrl: "templates/annonce_detail.html"
+      templateUrl: "templates/annonce_detail.html"
       }
     }
   })

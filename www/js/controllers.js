@@ -1,7 +1,7 @@
 angular.module('sos.controllers', [])
 
       .run(function($rootScope) {
-          $rootScope.sportAvailable = [{sport : "Tennis", id : "1"},{ sport : "Football", id : "2"},{ sport : "Badminton", id : "3"},{ sport : "Rugby", id : "4"},{ sport : "Handball", id : "5"}];
+          $rootScope.sportAvailable = [{sport : "Tennis", id : "1"},{ sport : "Football", id : "2"},{ sport : "VTT", id : "3"},{ sport : "PingPong", id : "4"},{ sport : "Golf", id : "5"}];
           $rootScope.niveauAvailable = [{niveau : "Débutant", id : "1"},{ niveau : "Intermédiaire", id : "2"}, { niveau : "Expert", id : "3"}];
       })
 
@@ -97,9 +97,11 @@ angular.module('sos.controllers', [])
 
       .controller('ajoutAnnonceCtrl', function($scope, $http) {
 
-          $scope.addAnnonce = function(sport_data, niveau_data, date_data){
+          $scope.addAnnonce = function(titre_data, description_data, sport_data, niveau_data, date_data){
 
             var data_q = {
+              titre : titre_data,
+              description : description_data, 
               sport : sport_data.sport,
               niveau : niveau_data.niveau,
               date : date_data
@@ -115,8 +117,7 @@ angular.module('sos.controllers', [])
                 // "http://localhost:8888/M2L_sospartenaires/www/js/signup.php",
               }).success(function (data) {
 
-                    window.location.href = '#/app/annonces';
-                    alert('Annonce ajoutée !');
+                    window.location.reload();
 
               }).error(function (data, status) {
 

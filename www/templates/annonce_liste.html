@@ -3,10 +3,11 @@
  <ion-refresher pulling-text="Pull to refresh" on-refresh="doRefresh()">
  </ion-refresher>
 
- <ion-list ng-repeat="x in annonceListe" class="padding">
-   <ion-item>Sport : {{ x.sport }}</ion-item><br/>
-   <ion-item>Niveau : {{ x.niveau }}</ion-item><br/>
-   <ion-item>Date : {{ x.date }}</ion-item><br/>
- </ion-list>
+  <a class="item item-thumbnail-left" ng-repeat="x in annonceListe" href="#/annonce/{{ x.id }}">
+      <img src="../img/{{ x.sport|lowercase }}.png">
+      <h2>{{ x.titre }}</h2>
+      <p>Niveau : {{ x.niveau }} </p>
+      <p> Date : {{ x.date }} </p>
+    </a>
  
 </ion-content>
