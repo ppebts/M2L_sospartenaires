@@ -1,0 +1,50 @@
+<ion-content class="padding has-header">
+  <ion-list>
+
+    <form name="inscriptionForm" ng-submit="inscription(email, password, nom, prenom, age, sport, civilite)">
+
+        <label class="item item-input item-select">
+          <span class="input-label" >Email</span>
+          <input type="text" ng-model="email">
+        </label> 
+        <br/>
+        <label class="item item-input item-select">
+          <span class="input-label">Mot de passe</span>
+          <input type="password" ng-model="password">
+        </label>   
+          <br/>
+        <label class="item item-input">
+          <span class="input-label" >Nom</span>
+          <input type="text" ng-model="nom">
+        </label>
+          <br/>
+        <label class="item item-input">
+          <span class="input-label" >Prénom</span>
+          <input type="text" ng-model="nom">
+        </label>
+          <br/>
+        <label class="item item-input">
+          <span class="input-label" >Âge</span>
+          <input type="text" ng-model="age">
+        </label>
+          <br/>
+        <label class="item item-input item-select">
+          <span class="input-label" >Sport favori</span>
+          <select ng-model="sport" ng-options="x.sport for x in sportAvailable">
+               <option value=""></option>
+          </select>
+        </label> 
+            <br/>
+        <label class="item item-input item-select">
+          <span class="input-label">Niveau</span>
+          <select ng-model="niveau" ng-options="x.niveau for x in niveauAvailable">
+            <option value=""></option>
+          </select>
+        </label> 
+ 
+        <button class="button button-block button-dark" menu-close>Envoyer</button>
+        
+    </form>
+ 
+  </ion-list>
+</ion-content>
