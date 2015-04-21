@@ -1,17 +1,28 @@
-<ion-content class="padding has-tabs">
-  <ion-list>
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">Inscription</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeInscription()">Ferme</button>
+    </div>
+  </ion-header-bar>
 
-    <form name="inscriptionForm" ng-submit="inscription(email, password, nom, prenom, age, sport, civilite)">
+  <ion-content>
+    <form ng-submit="doInscription(email, password, nom, prenom, age, ville, sport, niveau)">
 
-        <label class="item item-input item-select">
+        <label class="item item-input">
           <span class="input-label" >Email</span>
           <input type="text" ng-model="email">
         </label> 
         <br/>
-        <label class="item item-input item-select">
+        <label class="item item-input">
           <span class="input-label">Mot de passe</span>
           <input type="password" ng-model="password">
         </label>   
+  <!-- <br/>
+        <label class="item item-input">
+          <span class="input-label" >Civilité</span>
+         <input type="checkbox" value="Homme" ng-model="civilite">
+        </label> -->
           <br/>
         <label class="item item-input">
           <span class="input-label" >Nom</span>
@@ -20,31 +31,37 @@
           <br/>
         <label class="item item-input">
           <span class="input-label" >Prénom</span>
-          <input type="text" ng-model="nom">
+          <input type="text" ng-model="prenom">
         </label>
           <br/>
         <label class="item item-input">
           <span class="input-label" >Âge</span>
           <input type="text" ng-model="age">
         </label>
+            <br/>
+        <label class="item item-input">
+          <span class="input-label">Ville</span>
+          <input type="text" ng-model="ville">
+        </label> 
           <br/>
         <label class="item item-input item-select">
           <span class="input-label" >Sport favori</span>
-          <select ng-model="sport" ng-options="x.sport for x in sportAvailable">
+          <select ng-model="sport" ng-options="x.id as x.sport for x in sportAvailable">
                <option value=""></option>
           </select>
         </label> 
             <br/>
         <label class="item item-input item-select">
           <span class="input-label">Niveau</span>
-          <select ng-model="niveau" ng-options="x.niveau for x in niveauAvailable">
+          <select ng-model="niveau" ng-options="x.id as x.niveau for x in niveauAvailable">
             <option value=""></option>
           </select>
         </label> 
- 
-        <button class="button button-block button-dark" menu-close>Envoyer</button>
-        
+        <label class="item">
+          <button class="button button-block button-positive" ng-click="closeInscription()" type="submit">S'inscrire</button>
+        </label>        
+
     </form>
  
-  </ion-list>
-</ion-content>
+  </ion-content>
+</ion-modal-view>

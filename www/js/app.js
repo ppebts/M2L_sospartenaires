@@ -31,15 +31,6 @@ angular.module('sos', ['ionic', 'sos.controllers'])
     controller: 'menuCtrl'
   })
 
-  .state('app.inscription', {
-    url: "/inscription",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/inscription.html"
-      }
-    }
-  })
-
   .state('app.annonceliste', {
     url: "/annonces",
     views: {

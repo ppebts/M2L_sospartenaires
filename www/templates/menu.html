@@ -25,10 +25,10 @@
         <ion-item nav-clear menu-close href="#/app/annonces">
           Accueil
         </ion-item>
-        <ion-item nav-clear menu-close ng-click="login()">
+        <ion-item nav-clear ng-controller="loginCtrl" menu-close ng-click="login()">
           Login
         </ion-item>
-        <ion-item nav-clear menu-close href="#/app/inscription">
+        <ion-item nav-clear ng-controller="inscriptionCtrl" menu-close ng-click="inscription()">
           Inscription
         </ion-item>
       </ion-list>
