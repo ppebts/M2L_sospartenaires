@@ -40,7 +40,7 @@ angular.module('sos.controllers', [])
 
       .controller('listeAnnonceCtrl', function($scope, $http, $ionicLoading) {
 
-          
+
             $ionicLoading.show({
               template: 'Mise à jour...'
             });
@@ -62,7 +62,7 @@ angular.module('sos.controllers', [])
           
             }).error(function (data, status) {
 
-                alert('erreur' + data);
+                alert('erreur : ' + data);
                $ionicLoading.hide();
 
             });
