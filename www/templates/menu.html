@@ -42,14 +42,23 @@
     <ion-content class="padding">
       <ion-list>
 
-        <form name="annonceForm" ng-submit="addAnnonce(sport, niveau, date)">
+        <form name="annonceForm" ng-submit="addAnnonce(titre, description, sport, niveau, date)">
 
+            <label class="item item-input">
+              <span class="input-label">Titre</span>
+              <input type="text" ng-model="titre">
+            </label>
+            <br />
             <label class="item item-input item-select">
               <span class="input-label" >Sport</span>
               <select ng-model="sport" ng-options="x.sport for x in sportAvailable">
                    <option value=""></option>
               </select>
-            </label> 
+            </label>
+            <br />
+            <label class="item item-input">
+              <textarea rows="7" placeholder="Description" ng-model="description"></textarea>
+            </label>
             <br/>
             <label class="item item-input item-select">
               <span class="input-label">Niveau</span>

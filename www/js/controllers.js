@@ -1,7 +1,7 @@
 angular.module('sos.controllers', [])
 
       .run(function($rootScope) {
-          $rootScope.sportAvailable = [{sport : "Tennis"},{ sport : "Football"},{ sport : "Badminton"},{ sport : "Rugby"},{ sport : "Handball"}];
+          $rootScope.sportAvailable = [{sport : "Tennis"},{ sport : "Football"},{ sport : "VTT"},{ sport : "PingPong"},{ sport : "Golf"}];
           $rootScope.niveauAvailable = [{niveau : "Débutant"},{ niveau : "Intermédiaire"}, { niveau : "Expert"}];
       })
 
@@ -100,9 +100,11 @@ angular.module('sos.controllers', [])
 
       .controller('ajoutAnnonceCtrl', function($scope, $http) {
 
-          $scope.addAnnonce = function(sport_data, niveau_data, date_data){
+          $scope.addAnnonce = function(titre_data, description_data, sport_data, niveau_data, date_data){
 
             var data_q = {
+              titre : titre_data,
+              description : description_data, 
               sport : sport_data.sport,
               niveau : niveau_data.niveau,
               date : date_data
