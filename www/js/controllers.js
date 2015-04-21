@@ -118,7 +118,7 @@ angular.module('sos.controllers', [])
                 // "http://localhost:8888/M2L_sospartenaires/www/js/signup.php",
               }).success(function (data) {
 
-                    window.location.reload();
+                    window.location.href = '/app/annonces';
 
               }).error(function (data, status) {
 
