@@ -1,11 +1,35 @@
-<ion-content class="has-header" class="padding">
+<ion-content class="has-header"class="padding">
 
-  <div class="item item-thumbnail-left" ng-repeat="x in annonceDetail" href="#/app/annonce/{{ x.id }}">
-      <img src="../img/{{ x.sport|lowercase }}.png">
-      <h2>{{ x.titre }}</h2>
-      <p>{{ x.description }}</p>
-      <p>Niveau : {{ x.niveau }} </p>
-      <p> Date : {{ x.date }} </p>
-    </div>
+<div class="list card" ng-repeat="x in annonceDetail">
+
+  <div class="item item-avatar">
+    <img src="../img/logo/{{ x.sport|lowercase }}.png">
+    <h2>{{ x.titre }}</h2>
+    <p>{{ x.date }}</p>
+  </div>
+
+  <div class="item item-body">
+    <img class="full-image" src="../img/cover/{{ x.sport|lowercase }}-cover.png">
+    <p>{{ x.description }}</p>
+    <!--<p>
+      <a href="#" class="subdued">1 Like</a>
+      <a href="#" class="subdued">5 Comments</a>
+    </p>-->
+  </div>
+
+  <div class="item tabs tabs-secondary tabs-icon-left">
+    <a class="tab-item" href="#">
+      <i class="icon ion-thumbsup"></i>
+      Like
+    </a>
+    <a class="tab-item" href="#">
+      <i class="icon ion-ios-body"></i>
+      Je participe !
+    </a>
+  </div>
+
+</div>
  
 </ion-content>
+
+
