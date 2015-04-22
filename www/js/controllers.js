@@ -32,8 +32,7 @@ angular.module('sos.controllers', [])
 
         // Perform the login action when the user submits the login form
         $scope.doLogin = function() {
-          console.log('Doing login', $scope.loginData);
-
+          // code pour login
         };
       })
 
@@ -92,8 +91,43 @@ angular.module('sos.controllers', [])
 
                 });
             }
+
+
+
           })
     
+      .controller('annonceDetailCtrl', function($scope, $http, $stateParams, $ionicLoading){
+
+              $ionicLoading.show({
+                template: 'Mise à jour...'
+              });
+
+                var data_r = {id : $stateParams.id};
+
+                $http({
+                  method : 'post',
+                  // url : "http://10.10.2.45/ppe-m2l-fm/signup.php",
+                  url : "http://bmagne.hostoi.com/annonceDetail.php",
+                  data : data_r,
+                  headers : {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'},
+                  dataType : 'json'
+                  // "http://localhost:8888/M2L_sospartenaires/www/js/signup.php",
+                }).success(function (data) {
+
+                  $scope.annonceDetail = data;
+                  $ionicLoading.hide();
+
+                }).error(function (data, status) {
+
+                    alert('erreur : ' + data);
+                    $ionicLoading.hide();
+
+                });
+
+            
+
+
+      })
 
       .controller('ajoutAnnonceCtrl', function($scope, $http) {
 

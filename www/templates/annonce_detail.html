@@ -1,1 +1,11 @@
-details annonces
+<ion-content class="has-header" class="padding">
+
+  <div class="item item-thumbnail-left" ng-repeat="x in annonceDetail" href="#/app/annonce/{{ x.id }}">
+      <img src="../img/{{ x.sport|lowercase }}.png">
+      <h2>{{ x.titre }}</h2>
+      <p>{{ x.description }}</p>
+      <p>Niveau : {{ x.niveau }} </p>
+      <p> Date : {{ x.date }} </p>
+    </div>
+ 
+</ion-content>

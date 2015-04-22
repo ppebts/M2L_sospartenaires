@@ -41,10 +41,11 @@ angular.module('sos', ['ionic', 'sos.controllers'])
   })
 
   .state('app.annoncedetail', {
-    url: "/annonce/{id}",
+    url: "/annonce/:id",
     views: {
       'menuContent': {
-      templateUrl: "templates/annonce_detail.html"
+      templateUrl: "templates/annonce_detail.html",
+      controller : "annonceDetailCtrl"
       }
     }
   })
