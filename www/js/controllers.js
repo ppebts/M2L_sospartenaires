@@ -9,7 +9,7 @@ angular.module('sos.controllers', [])
 
       })
 
-      .controller('loginCtrl', function($scope, $ionicModal) {
+      .controller('loginCtrl', function($scope, $ionicModal, $http, $ionicLoading) {
         // Form data for the login modal
         $scope.loginData = {};
 
@@ -31,9 +31,48 @@ angular.module('sos.controllers', [])
         };
 
         // Perform the login action when the user submits the login form
-        $scope.doLogin = function() {
-          // code pour login
+        $scope.doLogin = function(email_data, password_data) {
+
+            $ionicLoading.show({
+              template: 'Connexion...'
+            });
+            
+            if (typeof email_data != 'undefined' && typeof password_data != 'undefined') {
+
+              var data_log = {email : email_data, password : password_data};
+            
+              $http({
+                method : 'post',
+                // url : "http://10.10.2.45/ppe-m2l-fm/signup.php",
+                url : "http://bmagne.hostoi.com/login.php",
+                data : data_log,
+                headers : {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'},
+                dataType : 'json'
+
+              }).success(function (data) {
+
+
+               $scope.user = window.localStorage.user = data[0] ;
+
+                window.location.href = '#/app/profil';
+
+
+                alert('Bonjour ' + user.user_first_name + ' ' + user.user_last_name +'. Vous Allez être redirigé vers votre profil');
+                $ionicLoading.hide();
+            
+              }).error(function (data, status) {
+
+                  alert('erreur : ' + data + status);
+                 $ionicLoading.hide();
+
+              });
+
+            }else{
+              $ionicLoading.hide();
+              alert('Merci de bien remplir les champs');
+            }
         };
+
       })
 
       .controller('listeAnnonceCtrl', function($scope, $http, $ionicLoading) {
@@ -47,7 +86,7 @@ angular.module('sos.controllers', [])
             $http({
               method : 'post',
               // url : "http://10.10.2.45/ppe-m2l-fm/signup.php",
-              url : "http://bmagne.hostoi.com/signup.php",
+              url : "http://bmagne.hostoi.com/annonceAjout.php",
               data : data_r,
               headers : {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'},
               dataType : 'json'
@@ -71,11 +110,10 @@ angular.module('sos.controllers', [])
                 $http({
                   method : 'post',
                   // url : "http://10.10.2.45/ppe-m2l-fm/signup.php",
-                  url : "http://bmagne.hostoi.com/signup.php",
+                  url : "http://bmagne.hostoi.com/annonceAjout.php",
                   data : data_r,
                   headers : {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'},
                   dataType : 'json'
-                  // "http://localhost:8888/M2L_sospartenaires/www/js/signup.php",
                 }).success(function (data) {
 
                   $scope.annonceListe = data;
@@ -111,7 +149,6 @@ angular.module('sos.controllers', [])
                   data : data_r,
                   headers : {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'},
                   dataType : 'json'
-                  // "http://localhost:8888/M2L_sospartenaires/www/js/signup.php",
                 }).success(function (data) {
 
                   $scope.annonceDetail = data;
