@@ -94,12 +94,13 @@ angular.module('sos.controllers', [])
             }).success(function (data) {
 
               $scope.annonceListe = data;
+              console.log(data);
               $ionicLoading.hide();
           
             }).error(function (data, status) {
 
-                alert('erreur : ' + data);
-               $ionicLoading.hide();
+              alert('erreur : ' + data);
+              $ionicLoading.hide();
 
             });
 
@@ -117,6 +118,7 @@ angular.module('sos.controllers', [])
                 }).success(function (data) {
 
                   $scope.annonceListe = data;
+                  console.log(data);
 
                 }).error(function (data, status) {
 
@@ -161,27 +163,26 @@ angular.module('sos.controllers', [])
 
                 });
 
-            
-
-
       })
 
       .controller('ajoutAnnonceCtrl', function($scope, $http) {
 
           $scope.addAnnonce = function(titre_data, description_data, sport_data, niveau_data, date_data){
 
-            var data_q = {
+            var data_q = { 
               titre : titre_data,
               description : description_data, 
-              sport : sport_data.sport,
-              niveau : niveau_data.niveau,
+              sport : sport_data['id'],
+              niveau : niveau_data['id'],
               date : date_data
             };
+
+
 
             $http({ 
                 method : 'post',
                // url : "http://10.10.2.45/ppe-m2l-fm/signup.php",
-               url : "http://bmagne.hostoi.com/signup.php",
+               url : "http://bmagne.hostoi.com/annonceAjout.php",
                 data : data_q,
                 headers : {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'},
                 dataType : 'json'
