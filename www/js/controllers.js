@@ -36,11 +36,11 @@ angular.module('sos.controllers', [])
             $ionicLoading.show({
               template: 'Connexion...'
             });
-            
+
             if (typeof email_data != 'undefined' && typeof password_data != 'undefined') {
 
               var data_log = {email : email_data, password : password_data};
-            
+
               $http({
                 method : 'post',
                 // url : "http://10.10.2.45/ppe-m2l-fm/signup.php",
@@ -51,25 +51,25 @@ angular.module('sos.controllers', [])
 
               }).success(function (data) {
 
-
-               $scope.user = window.localStorage.user = data[0] ;
+                var user = data[0];
 
                 window.location.href = '#/app/profil';
-
 
                 alert('Bonjour ' + user.user_first_name + ' ' + user.user_last_name +'. Vous Allez être redirigé vers votre profil');
                 $ionicLoading.hide();
             
               }).error(function (data, status) {
 
-                  alert('erreur : ' + data + status);
-                 $ionicLoading.hide();
+                alert('erreur : ' + data + status);
+                $ionicLoading.hide();
 
               });
 
             }else{
+
               $ionicLoading.hide();
               alert('Merci de bien remplir les champs');
+
             }
         };
 
@@ -94,7 +94,6 @@ angular.module('sos.controllers', [])
             }).success(function (data) {
 
               $scope.annonceListe = data;
-              console.log(data);
               $ionicLoading.hide();
           
             }).error(function (data, status) {
@@ -118,7 +117,6 @@ angular.module('sos.controllers', [])
                 }).success(function (data) {
 
                   $scope.annonceListe = data;
-                  console.log(data);
 
                 }).error(function (data, status) {
 
@@ -142,26 +140,26 @@ angular.module('sos.controllers', [])
                 template: 'Mise à jour...'
               });
 
-                var data_r = {id : $stateParams.id};
+              var data_r = {id : $stateParams.id};
 
-                $http({
-                  method : 'post',
-                  // url : "http://10.10.2.45/ppe-m2l-fm/signup.php",
-                  url : "http://bmagne.hostoi.com/annonceDetail.php",
-                  data : data_r,
-                  headers : {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'},
-                  dataType : 'json'
-                }).success(function (data) {
+              $http({
+                method : 'post',
+                // url : "http://10.10.2.45/ppe-m2l-fm/signup.php",
+                url : "http://bmagne.hostoi.com/annonceDetail.php",
+                data : data_r,
+                headers : {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'},
+                dataType : 'json'
+              }).success(function (data) {
 
-                  $scope.annonceDetail = data;
+                $scope.annonceDetail = data;
+                $ionicLoading.hide();
+
+              }).error(function (data, status) {
+
+                  alert('erreur : ' + data);
                   $ionicLoading.hide();
 
-                }).error(function (data, status) {
-
-                    alert('erreur : ' + data);
-                    $ionicLoading.hide();
-
-                });
+              });
 
       })
 
@@ -176,8 +174,6 @@ angular.module('sos.controllers', [])
               niveau : niveau_data['id'],
               date : date_data
             };
-
-
 
             $http({ 
                 method : 'post',
@@ -236,8 +232,6 @@ angular.module('sos.controllers', [])
               sportFav : sportFav,
               niveau : niveau
             };
-
-            console.log(data_q);
 
             $http({ 
                 method : 'post',
