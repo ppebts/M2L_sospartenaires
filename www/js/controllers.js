@@ -39,27 +39,31 @@ angular.module('sos.controllers', [])
 
             if (typeof email_data != 'undefined' && typeof password_data != 'undefined') {
 
-              var data_log = {email : email_data, password : password_data};
+              var data_log = {"email" : email_data, "password" : password_data};
+
+              console.log(data_log);
 
               $http({
-                method : 'post',
-                // url : "http://10.10.2.45/ppe-m2l-fm/signup.php",
-                url : "http://bmagne.hostoi.com/login.php",
-                data : data_log,
-                headers : {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'},
-                dataType : 'json'
-
+                  method : 'post',
+                  // url : "http://10.10.2.45/ppe-m2l-fm/signup.php",
+                  url : "http://localhost:8888/rest/login",
+                  // url : "http://bmagne.hostoi.com/annonceAjout.php",
+                  data : data_log,
+                  headers : {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'},
+                  dataType : 'json'
               }).success(function (data) {
 
-                var user = data[0];
+                console.log(data);
 
                 window.location.href = '#/app/profil';
 
-                alert('Bonjour ' + user.user_first_name + ' ' + user.user_last_name +'. Vous Allez être redirigé vers votre profil');
+                // alert('Bonjour ' + user.user_first_name + ' ' + user.user_last_name +'. Vous Allez être redirigé vers votre profil');
                 $ionicLoading.hide();
             
               }).error(function (data, status) {
 
+                console.log(data);
+                console.log(status);
                 alert('erreur : ' + data + status);
                 $ionicLoading.hide();
 
@@ -81,13 +85,11 @@ angular.module('sos.controllers', [])
               template: 'Mise à jour...'
             });
 
-            var data_r = {reload : 1};
-
             $http({
-              method : 'post',
+              method : 'GET',
               // url : "http://10.10.2.45/ppe-m2l-fm/signup.php",
-              url : "http://bmagne.hostoi.com/annonceAjout.php",
-              data : data_r,
+              url : "http://bmagne.hostoi.com/annonces",
+              // url : "http://localhost:8888/rest/annonces",
               headers : {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'},
               dataType : 'json'
               // "http://localhost:8888/M2L_sospartenaires/www/js/signup.php",
@@ -105,13 +107,12 @@ angular.module('sos.controllers', [])
 
           $scope.doRefresh = function(){
 
-              var data_r = {reload : 1};
 
                 $http({
-                  method : 'post',
+                  method : 'GET',
                   // url : "http://10.10.2.45/ppe-m2l-fm/signup.php",
-                  url : "http://bmagne.hostoi.com/annonceAjout.php",
-                  data : data_r,
+                  url : "http://bmagne.hostoi.com/annonces",
+                   // url : "http://localhost:8888/rest/annonces",
                   headers : {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'},
                   dataType : 'json'
                 }).success(function (data) {
@@ -143,9 +144,10 @@ angular.module('sos.controllers', [])
               var data_r = {id : $stateParams.id};
 
               $http({
-                method : 'post',
+                method : 'POST',
                 // url : "http://10.10.2.45/ppe-m2l-fm/signup.php",
-                url : "http://bmagne.hostoi.com/annonceDetail.php",
+                // url : "http://bmagne.hostoi.com/annonceDetail.php",
+                  url : "http://bmagne.hostoi.com/annonces",
                 data : data_r,
                 headers : {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'},
                 dataType : 'json'
