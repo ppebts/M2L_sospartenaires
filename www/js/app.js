@@ -28,7 +28,7 @@ angular.module('sos', ['ionic', 'sos.controllers'])
     url: "/app",
     abstract: true,
     templateUrl: "templates/menu.html",
-    controller: 'menuCtrl'
+    controller : "menuCtrl"
   })
 
   .state('app.annonceliste', {
