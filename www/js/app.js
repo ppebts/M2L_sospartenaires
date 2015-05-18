@@ -54,7 +54,8 @@ angular.module('sos', ['ionic', 'sos.controllers'])
     url: "/profil",
     views: {
       'menuContent': {
-        templateUrl: "templates/profil.html"
+        templateUrl: "templates/profil.html",
+        controller : "profilCtrl"
       }
     }
   });

@@ -1,11 +1,15 @@
-<ion-content ng-controller="loginCtrl" class="has-header"class="padding">
+<ion-content ng-controller="profilCtrl" class="has-header"class="padding">
 
 <div class="list card">
 
-  <div ng-repeat="x in user">
-    <h2>{{ x.user_first_name }}{{ x.user_last_name }}</h2>
-    <p>{{ x.user_age }}</p>
-    <p>{{ x.user_mail }}</p>
+  <div>
+    <h2>{{ user.first_name }} {{ user.name }}</h2>
+    <p>{{ user.date_of_birth }}</p>
+    <p>{{ user.email }}</p>
+    <p>{{ user.city }}</p>
+    <p>{{ user.sport }}</p>
+    <p>{{ user.niveau }}</p>
+    <p>{{ user.email }}</p>
   </div>
 
 </div>

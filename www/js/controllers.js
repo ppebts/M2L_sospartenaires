@@ -1,9 +1,40 @@
 var app = angular.module('sos.controllers', [])
 
-    app.run(function($rootScope) {
-          $rootScope.sportAvailable = [{sport : "Tennis", id : "1"},{ sport : "Football", id : "2"},{ sport : "VTT", id : "3"},{ sport : "PingPong", id : "4"},{ sport : "Golf", id : "5"}];
+	app.factory('$localstorage', function ($rootScope) {
+
+		    return {
+		        
+		        get: function (key) {
+		           return localStorage.getItem(key);
+		        },
+
+		        save: function (key, data) {
+		           localStorage.setItem(key, JSON.stringify(data));
+		        },
+
+		        remove: function (key) {
+		            localStorage.removeItem(key);
+		        },
+		        
+		        clearAll : function () {
+		            localStorage.clear();
+		        }
+		    };
+		});
+
+    app.run(function($rootScope, $localstorage) {
+    	
+    	var token = $localstorage.get('token');
+
+    	if (token == null )
+    		$rootScope.logged = false;
+    	else
+    		$rootScope.logged = true;
+
+    	  $rootScope.sportAvailable = [{sport : "Tennis", id : "1"},{ sport : "Football", id : "2"},{ sport : "VTT", id : "3"},{ sport : "PingPong", id : "4"},{ sport : "Golf", id : "5"}];
           $rootScope.niveauAvailable = [{niveau : "Débutant", id : "1"},{ niveau : "Intermédiaire", id : "2"}, { niveau : "Expert", id : "3"}];
-    });
+
+		});
 
 ////////////////////////////////    MENU    /////////////////////////////////////////////
 
@@ -11,10 +42,38 @@ var app = angular.module('sos.controllers', [])
 
     });
 
-////////////////////////////////    LOGIN    /////////////////////////////////////////////
 
+////////////////////////////////    PROFIL    /////////////////////////////////////////////
+
+    app.controller('profilCtrl', function($scope, $localstorage, $http, $ionicLoading){
+
+    	var token = $localstorage.get('token');
+
+     	$http({
+          method : 'POST',
+          data : token,
+          url : "http://localhost:8888/SOS_backend/web/app_dev.php/user/profil",
+          headers : {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'},
+          dataType : 'json'
+
+		}).success(function (data) {
+			
+            $scope.user = data['user']['user'];
+            $ionicLoading.hide();
     
-    app.controller('loginCtrl', function($scope, $ionicModal, $http, $ionicLoading) {
+		}).error(function (data) {
+
+    	    alert('erreur');
+
+        	$ionicLoading.hide();
+
+		});   	
+
+    });
+
+////////////////////////////////    LOGIN    /////////////////////////////////////////////
+    
+    app.controller('loginCtrl', function($scope, $ionicModal, $http, $ionicLoading, $localstorage, $rootScope) {
         // Form data for the login modal
         $scope.loginData = {};
 
@@ -24,6 +83,14 @@ var app = angular.module('sos.controllers', [])
         }).then(function(modal) {
           $scope.modal = modal;
         });
+
+        // Logout
+        $scope.logout = function() {
+          $localstorage.remove('token');
+        	$rootScope.logged = false;
+
+        window.location.href = '#/app/annonces';
+        };
 
         // Triggered in the login modal to close it
         $scope.closeLogin = function() {
@@ -46,28 +113,27 @@ var app = angular.module('sos.controllers', [])
 
             	var data_log = {"email" : email_data, "password" : password_data};
 
-            	console.log(data_log);
-
             	$http({
                   method : 'post',
-		          url : "http://localhost:8888/SOS_backend/web/app_dev.php/login",
+		          url : "http://localhost:8888/SOS_backend/web/app_dev.php/user/login",
                   data : data_log,
                   headers : {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'},
                   dataType : 'json'
+
 				}).success(function (data) {
 
-					console.log(data);
-
 					window.location.href = '#/app/profil';
-
-        	        // alert('Bonjour ' + user.user_first_name + ' ' + user.user_last_name +'. Vous Allez être redirigé vers votre profil');
+					
+					$localstorage.save('user', data['logs']['user']); 
+					$localstorage.save('token', data['logs']['token']);
+					$rootScope.logged = true;
     	            $ionicLoading.hide();
             
-				}).error(function (data, status) {
+				}).error(function (data) {
 
 					console.log(data);
-        	        console.log(status);
-            	    alert('erreur : ' + data + status);
+            	    alert('erreur');
+
                 	$ionicLoading.hide();
 
 				});
@@ -125,11 +191,9 @@ var app = angular.module('sos.controllers', [])
             $http({ 
                 method : 'post',
                 url : "http://localhost:8888/SOS_backend/web/app_dev.php/user",
-                // url : "http://localhost:8888/SOS_backend/web/app/user",
                 data : data,
                 dataType : 'application/json',
                 headers : {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'},
-                // "http://localhost:8888/M2L_sospartenaires/www/js/signup.php",
 			}).success(function (data) {
 
                 window.location.href = '#/app/annonces';
@@ -161,10 +225,9 @@ var app = angular.module('sos.controllers', [])
 			dataType : 'json'
 		}).success(function (data) {
 
-			console.log(data);
-			$scope.annonceListe = data;
+			$scope.annonceListe = data['annonceListe'];
 			$ionicLoading.hide();
-          
+
 		}).error(function (data, status) {
 
 			alert('erreur : ' + data);
@@ -181,7 +244,7 @@ var app = angular.module('sos.controllers', [])
 				dataType : 'json'
 			}).success(function (data) {
 
-				$scope.annonceListe = data;
+				$scope.annonceListe = data['annonceListe'];
 
 			}).error(function (data, status) {
 
@@ -211,7 +274,7 @@ var app = angular.module('sos.controllers', [])
 			dataType : 'json'
 		}).success(function (data) {
 
-			$scope.annonceDetail = data;
+			$scope.annonceDetail = data['annonce'];
 			$ionicLoading.hide();
 
 		}).error(function (data, status) {
@@ -242,10 +305,9 @@ var app = angular.module('sos.controllers', [])
 				data : data_q,
 				headers : {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'},
 				dataType : 'json'
-				// "http://localhost:8888/M2L_sospartenaires/www/js/signup.php",
 			}).success(function (data) {
 
-				window.location.reload();
+                window.location.href = '#/app/annonces';
 
 			}).error(function (data, status) {
 

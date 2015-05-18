@@ -8,7 +8,6 @@
       </ion-nav-buttons>
 
       <ion-content>
-aeaze
       </ion-content>
 
       <ion-nav-buttons side="left">
@@ -29,14 +28,17 @@ aeaze
         <ion-item nav-clear menu-close href="#/app/annonces">
           Accueil
         </ion-item>
-        <ion-item nav-clear ng-controller="loginCtrl" menu-close ng-click="login()">
+        <ion-item ng-if="!logged" nav-clear ng-controller="loginCtrl" menu-close ng-click="login()">
           Login
         </ion-item>
-        <ion-item nav-clear menu-close href="#/app/profil">
+        <ion-item ng-if="logged" nav-clear menu-close href="#/app/profil">
           Profil
         </ion-item>
-        <ion-item nav-clear ng-controller="inscriptionCtrl" menu-close ng-click="inscription()">
+        <ion-item ng-if="!logged" nav-clear ng-controller="inscriptionCtrl" menu-close ng-click="inscription()">
           Inscription
+        </ion-item>
+        <ion-item ng-if="logged" nav-clear ng-controller="loginCtrl" class="bar-red" menu-close ng-click="logout()">
+          Logout
         </ion-item>
       </ion-list>
     </ion-content>
