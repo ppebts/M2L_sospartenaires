@@ -50,9 +50,7 @@ var app = angular.module('sos.controllers', [])
 
             	$http({
                   method : 'post',
-                  // url : "http://10.10.2.45/ppe-m2l-fm/signup.php",
-                  url : "http://localhost:8888/rest/login",
-                  // url : "http://bmagne.hostoi.com/annonceAjout.php",
+		          url : "http://localhost:8888/SOS_backend/web/app_dev.php/login",
                   data : data_log,
                   headers : {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'},
                   dataType : 'json'
@@ -158,14 +156,12 @@ var app = angular.module('sos.controllers', [])
 
 		$http({
 			method : 'GET',
-			// url : "http://10.10.2.45/ppe-m2l-fm/signup.php",
             url : "http://localhost:8888/SOS_backend/web/app_dev.php/annonces",
-			// url : "http://localhost:8888/rest/annonces",
 			headers : {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'},
 			dataType : 'json'
-			// "http://localhost:8888/M2L_sospartenaires/www/js/signup.php",
 		}).success(function (data) {
 
+			console.log(data);
 			$scope.annonceListe = data;
 			$ionicLoading.hide();
           
@@ -180,9 +176,7 @@ var app = angular.module('sos.controllers', [])
 
 			$http({
 				method : 'GET',
-				// url : "http://10.10.2.45/ppe-m2l-fm/signup.php",
-				url : "http://bmagne.hostoi.com/annonces",
-				// url : "http://localhost:8888/rest/annonces",
+            	url : "http://localhost:8888/SOS_backend/web/app_dev.php/annonces",
 				headers : {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'},
 				dataType : 'json'
 			}).success(function (data) {
@@ -208,14 +202,11 @@ var app = angular.module('sos.controllers', [])
 			template: 'Mise à jour...'
 		});
 
-		var data_r = {id : $stateParams.id};
+		var id = $stateParams.id;
 
 		$http({
-			method : 'POST',
-			// url : "http://10.10.2.45/ppe-m2l-fm/signup.php",
-			// url : "http://bmagne.hostoi.com/annonceDetail.php",
-			url : "http://bmagne.hostoi.com/annonces",
-			data : data_r,
+			method : 'GET',
+            url : "http://localhost:8888/SOS_backend/web/app_dev.php/annonce/" + id,
 			headers : {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'},
 			dataType : 'json'
 		}).success(function (data) {
@@ -234,20 +225,20 @@ var app = angular.module('sos.controllers', [])
 
 	app.controller('ajoutAnnonceCtrl', function($scope, $http) {
 
-		$scope.addAnnonce = function(titre_data, description_data, sport_data, niveau_data, date_data){
+		$scope.addAnnonce = function(titre_data, description_data, sport_data, niveau_data, date_data, user_id_data){
 
 			var data_q = { 
 				titre : titre_data,
 				description : description_data, 
 				sport : sport_data['id'],
 				niveau : niveau_data['id'],
-				date : date_data
+				date : date_data,
+				user_id : user_id_data
 			};
 
 			$http({ 
 				method : 'post',
-				// url : "http://10.10.2.45/ppe-m2l-fm/signup.php",
-				url : "http://bmagne.hostoi.com/annonceAjout.php",
+            	url : "http://localhost:8888/SOS_backend/web/app_dev.php/annonce",
 				data : data_q,
 				headers : {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'},
 				dataType : 'json'
