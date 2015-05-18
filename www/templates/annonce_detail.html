@@ -1,28 +1,21 @@
-<ion-content class="has-header"class="padding">
+<ion-content ng-controller="annonceDetailCtrl" class="has-header"class="padding">
 
-<div class="list card" ng-repeat="x in annonceDetail">
+<div class="list card">
 
   <div class="item item-avatar">
-    <img src="../img/logo/{{ x.sport|lowercase }}.png">
-    <h2>{{ x.titre }}</h2>
-    <p>{{ x.date }}</p>
+    <img src="../img/logo/{{ annonce.sport|lowercase }}.png">
+    <h2>{{ annonce.titre }}</h2>
+    <p>{{ annonce.date }}</p>
   </div>
 
   <div class="item item-body">
-    <img class="full-image" src="../img/cover/{{ x.sport|lowercase }}-cover.png">
-    <p>{{ x.description }}</p>
-    <!--<p>
-      <a href="#" class="subdued">1 Like</a>
-      <a href="#" class="subdued">5 Comments</a>
-    </p>-->
+    <img class="full-image" src="../img/cover/{{ annonce.sport|lowercase }}-cover.png">
+    <p>{{ annonce.description }}</p>
+
   </div>
 
   <div class="item tabs tabs-secondary tabs-icon-left">
-    <a class="tab-item" href="#">
-      <i class="icon ion-thumbsup"></i>
-      Like
-    </a>
-    <a class="tab-item" href="#">
+    <a class="tab-item" href="#/app/participer/{{ annonce.id }}">
       <i class="icon ion-ios-body"></i>
       Je participe !
     </a>

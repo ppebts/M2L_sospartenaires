@@ -126,6 +126,7 @@ var app = angular.module('sos.controllers', [])
 					
 					$localstorage.save('user', data['logs']['user']); 
 					$localstorage.save('token', data['logs']['token']);
+
 					$rootScope.logged = true;
     	            $ionicLoading.hide();
             
@@ -274,7 +275,7 @@ var app = angular.module('sos.controllers', [])
 			dataType : 'json'
 		}).success(function (data) {
 
-			$scope.annonceDetail = data['annonce'];
+			$scope.annonce = data['annonce'];
 			$ionicLoading.hide();
 
 		}).error(function (data, status) {
@@ -286,9 +287,9 @@ var app = angular.module('sos.controllers', [])
 
 	});
 
-	app.controller('ajoutAnnonceCtrl', function($scope, $http) {
+	app.controller('ajoutAnnonceCtrl', function($scope, $http, $localstorage) {
 
-		$scope.addAnnonce = function(titre_data, description_data, sport_data, niveau_data, date_data, user_id_data){
+		$scope.addAnnonce = function(titre_data, description_data, sport_data, niveau_data, date_data){
 
 			var data_q = { 
 				titre : titre_data,
@@ -296,23 +297,23 @@ var app = angular.module('sos.controllers', [])
 				sport : sport_data['id'],
 				niveau : niveau_data['id'],
 				date : date_data,
-				user_id : user_id_data
+				user_token : JSON.parse($localstorage.get('token'))
 			};
 
 			$http({ 
-				method : 'post',
+				method : 'POST',
             	url : "http://localhost:8888/SOS_backend/web/app_dev.php/annonce",
 				data : data_q,
 				headers : {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'},
 				dataType : 'json'
+
 			}).success(function (data) {
 
                 window.location.href = '#/app/annonces';
+                alert('ok');
 
-			}).error(function (data, status) {
-
-				alert('L\'application n\'a pas pu mettre à jour le contenu' + data);
-
+			}).error(function (data) {
+				console.log(data);
 			});
                           
 		};
