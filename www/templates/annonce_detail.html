@@ -3,19 +3,19 @@
 <div class="list card">
 
   <div class="item item-avatar">
-    <img src="../img/logo/{{ annonce.sport|lowercase }}.png">
+    <img src="./img/logo/{{ annonce.sport|lowercase }}.png">
     <h2>{{ annonce.titre }}</h2>
     <p>{{ annonce.date }}</p>
   </div>
 
   <div class="item item-body">
-    <img class="full-image" src="../img/cover/{{ annonce.sport|lowercase }}-cover.png">
+    <img class="full-image" src="./img/cover/{{ annonce.sport|lowercase }}-cover.png">
     <p>{{ annonce.description }}</p>
 
   </div>
 
-  <div class="item tabs tabs-secondary tabs-icon-left">
-    <a class="tab-item" href="#/app/participer/{{ annonce.id }}">
+  <div ng-show="logged" class="item tabs tabs-secondary tabs-icon-left">
+    <a class="tab-item" href="#" ng-click="afficherUserInfos()">
       <i class="icon ion-ios-body"></i>
       Je participe !
     </a>

@@ -122,14 +122,20 @@ var app = angular.module('sos.controllers', [])
 
 				}).success(function (data) {
 
+
+					if (data['code'] == 401) {
+						alert('Authentication failed');
+	    	            $ionicLoading.hide();
+					}else{
+											
 					window.location.href = '#/app/profil';
 					
 					$localstorage.save('user', data['logs']['user']); 
 					$localstorage.save('token', data['logs']['token']);
-
 					$rootScope.logged = true;
     	            $ionicLoading.hide();
-            
+
+            		}
 				}).error(function (data) {
 
 					console.log(data);
@@ -284,6 +290,10 @@ var app = angular.module('sos.controllers', [])
 			$ionicLoading.hide();
 
 		});
+
+		$scope.afficherUserInfos = function(){
+			alert('Contactez '+$scope.annonce['user_first_name']+' '+$scope.annonce['user_name']+' à l\'adresse suivante : '+$scope.annonce['user_email']);
+		}
 
 	});
 
